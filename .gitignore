@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+backend/venv/
+
+# Heavy Machine Learning Weights (GitHub 100MB limit protection)
+*.h5
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Env files
+.env
+.env.*
+
+# OS Files
+.DS_Store
+Thumbs.db
