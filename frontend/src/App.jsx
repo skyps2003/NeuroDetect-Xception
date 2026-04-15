@@ -71,7 +71,8 @@ function App() {
     formData.append('file', file);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://neurodetect-xception.onrender.com';
+      const rawUrl = import.meta.env.VITE_API_URL || 'https://neurodetect-xception.onrender.com';
+      const apiUrl = rawUrl.replace(/\/+$/, '');
       const response = await axios.post(`${apiUrl}/predict`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',

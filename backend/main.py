@@ -45,9 +45,16 @@ def remove_unsupported_kwargs(config):
 async def load_model():
     global model
     try:
-        if not os.path.exists(JSON_PATH) or not os.path.exists(WEIGHTS_PATH):
-            print(f"Error: Model files not found in {MODEL_DIR}")
+        if not os.path.exists(JSON_PATH):
+            print(f"Error: Model JSON not found in {JSON_PATH}")
             return
+
+        if not os.path.exists(WEIGHTS_PATH):
+            print("Pesos no encontrados. Descargando desde Google Drive...")
+            import gdown
+            file_id = '1QjLT6jpWJlgtSnr7sbeFv2p0xQvca8LF'
+            url = f'https://drive.google.com/uc?id={file_id}'
+            gdown.download(url, WEIGHTS_PATH, quiet=False)
         
         with open(JSON_PATH, "r") as json_file:
             model_data = json.load(json_file)
