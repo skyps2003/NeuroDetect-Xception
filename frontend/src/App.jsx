@@ -71,7 +71,8 @@ function App() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:8000/predict', formData, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://neurodetect-xception.onrender.com';
+      const response = await axios.post(`${apiUrl}/predict`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -79,7 +80,7 @@ function App() {
       setResult(response.data);
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.detail || "Ocurrió un error al procesar la imagen. Verifica que el servidor backend esté corriendo en localhost:8000.");
+      setError(err.response?.data?.detail || "Ocurrió un error de conexión con el servidor en la nube. Verifica tu conexión a internet o el estado del backend en Render.");
     } finally {
       setLoading(false);
     }
@@ -177,8 +178,8 @@ function App() {
                         onClick={handleSubmit}
                         disabled={loading}
                         className={`flex-1 py-3 rounded-xl font-semibold flex items-center justify-center text-sm transition-all shadow-lg ${loading
-                            ? 'bg-medical-indigo/50 text-indigo-200 cursor-not-allowed'
-                            : 'bg-medical-indigo hover:bg-indigo-500 text-white hover:shadow-medical-indigo/25'
+                          ? 'bg-medical-indigo/50 text-indigo-200 cursor-not-allowed'
+                          : 'bg-medical-indigo hover:bg-indigo-500 text-white hover:shadow-medical-indigo/25'
                           }`}
                       >
                         {loading ? (
